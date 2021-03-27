@@ -72,7 +72,7 @@ const Info = styled.div`
     margin-left: 60px;
     width: 544px;
     height: 57px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     line-height: 30px;
     text-align: left;

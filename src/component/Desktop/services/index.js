@@ -4,39 +4,39 @@ function Services({ setType, display, setDisplay }) {
   return (
     <Container className="Services" id="Services">
       <Content>
-        <Card>
+        <Card
+          onClick={() => {
+            setType("pool");
+            setDisplay(!display);
+          }}
+        >
           <span>LORD POOL</span>
           <img className="pool" src="./images/LORD-POOL.png" />
-          <Button
-            onClick={() => {
-              setType("pool");
-              setDisplay(!display);
-            }}
-          >
+          <Button>
             <span>More</span>
           </Button>
         </Card>
-        <Card>
+        <Card
+          onClick={() => {
+            setType("swap");
+            setDisplay(!display);
+          }}
+        >
           <span>LORD SWAP</span>
           <img className="swap" src="./images/LORD-SWAP.png" />
-          <Button
-            onClick={() => {
-              setType("swap");
-              setDisplay(!display);
-            }}
-          >
+          <Button>
             <span>More</span>
           </Button>
         </Card>
-        <Card>
+        <Card
+          onClick={() => {
+            setType("finance");
+            setDisplay(!display);
+          }}
+        >
           <span>LORD FINANCE</span>
           <img className="finance" src="./images/LORD-FINANCE.png" />
-          <Button
-            onClick={() => {
-              setType("finance");
-              setDisplay(!display);
-            }}
-          >
+          <Button>
             <span>More</span>
           </Button>
         </Card>
@@ -72,7 +72,7 @@ const Container = styled.div`
     .title {
       margin: auto auto;
       margin-top: 0;
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 30px;
       font-weight: bold;
       line-height: 41px;
@@ -82,7 +82,7 @@ const Container = styled.div`
     .text {
       margin: auto auto;
       margin-top: 0;
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 20px;
       line-height: 27px;
       color: #ffffff;
@@ -90,7 +90,7 @@ const Container = styled.div`
     .countdown {
       margin: auto auto;
       margin-top: 20px;
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 50px;
       font-weight: bold;
       line-height: 68px;
@@ -104,7 +104,7 @@ const Content = styled.div`
   width: 760px;
   height: 500px;
   margin: auto auto;
-  margin-left: 33vw;
+  margin-left: 30vw;
 `;
 
 const Card = styled.div`
@@ -117,7 +117,7 @@ const Card = styled.div`
   span {
     margin: auto auto;
     margin-top: 0;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 30px;
     font-weight: bold;
     line-height: 41px;
@@ -151,7 +151,7 @@ const Button = styled.div`
   border: solid 1px #ffffff;
   span {
     margin: auto auto;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 15px;
     font-weight: bold;
     line-height: 20px;
@@ -182,7 +182,7 @@ const ButtonFinance = styled.div`
   border: solid 2px #ffffff;
   span {
     margin: auto auto;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 30px;
     font-weight: bold;
     line-height: 41px;

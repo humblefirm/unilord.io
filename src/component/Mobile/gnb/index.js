@@ -110,7 +110,7 @@ const Nav = styled.div`
       display: none;
     }
     span {
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 15px;
       text-align: left;
       color: #ffffff;

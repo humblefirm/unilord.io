@@ -49,7 +49,7 @@ const Content = styled.div`
   flex-direction: column;
   margin: auto auto;
   .title {
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-weight: bold;
     line-height: 27px;
@@ -73,7 +73,7 @@ const Info = styled.div`
   }
   span {
     margin: auto auto;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 12px;
     line-height: 25px;
     text-align: center;

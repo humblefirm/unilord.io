@@ -33,7 +33,7 @@ const Container = styled.div`
   width: 100vw;
   .title {
     margin-top: 100px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-weight: bold;
     line-height: 27px;
@@ -50,7 +50,7 @@ const Content = styled.div`
   .title {
     margin-top: 45px;
     margin-bottom: 13px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 30px;
     font-weight: bold;
     line-height: 41px;
@@ -59,7 +59,7 @@ const Content = styled.div`
   }
   .email {
     margin-top: 10px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     line-height: 27px;
     text-align: center;
@@ -79,7 +79,7 @@ const Logo = styled.div`
   span {
     margin: auto auto;
     margin-bottom: 43px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     line-height: 27px;
     text-align: center;

@@ -50,7 +50,7 @@ const Content = styled.div`
   }
   .text {
     margin-top: 12px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     text-align: center;
     color: #ffffff;

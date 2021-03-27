@@ -111,7 +111,7 @@ const Nav = styled.div`
     }
     span {
       margin-left: 68px;
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 15px;
       text-align: left;
       color: #ffffff;

@@ -61,7 +61,7 @@ const Container = styled.div`
   width: 100vw;
   .title {
     margin-top: 100px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-weight: bold;
     line-height: 27px;
@@ -90,7 +90,7 @@ const Container = styled.div`
     .text {
       margin: auto auto;
       margin-top: 0;
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 15px;
       line-height: 25px;
       text-align: center;
@@ -99,7 +99,7 @@ const Container = styled.div`
     .countdown {
       margin: auto auto;
       margin-top: 20px;
-      font-family: NotoSerif;
+      font-family: Times New Roman;
       font-size: 30px;
       font-weight: bold;
       line-height: 41px;
@@ -124,7 +124,7 @@ const Card = styled.div`
   span {
     margin: auto auto;
     margin-top: 50px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 15px;
     font-weight: bold;
     line-height: 20px;
@@ -158,7 +158,7 @@ const Button = styled.div`
   border: solid 1px #ffffff;
   span {
     margin: auto auto;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 15px;
     font-weight: bold;
     line-height: 20px;
@@ -190,7 +190,7 @@ const ButtonFinance = styled.div`
   border: solid 2px #ffffff;
   span {
     margin: auto auto;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-weight: bold;
     text-align: center;

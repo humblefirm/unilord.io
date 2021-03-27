@@ -39,9 +39,9 @@ function Modal({ type, display, setDisplay }) {
 const Container = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
+  margin-left: 30vw;
   display: flex;
-  width: 100vw;
+  width: 760px;
   height: 100vh;
 `;
 const Content = styled.div`
@@ -71,7 +71,7 @@ const Content = styled.div`
     margin: auto auto;
     width: 424px;
     height: 67px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-style: italic;
     line-height: 20px;

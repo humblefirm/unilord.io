@@ -38,7 +38,7 @@ const Container = styled.div`
   width: 100vw;
   .title {
     margin-top: 100px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-weight: bold;
     line-height: 27px;
@@ -54,7 +54,7 @@ const Content = styled.div`
   margin-top: 50px;
   margin-bottom: 100px;
   width: 90vw;
-  font-family: NotoSerif;
+  font-family: Times New Roman;
   font-size: 15px;
   line-height: 20px;
   text-align: center;

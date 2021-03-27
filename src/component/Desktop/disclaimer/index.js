@@ -47,7 +47,7 @@ const Content = styled.div`
   margin-left: 33vw;
   width: 724px;
   height: 440px;
-  font-family: NotoSerif;
+  font-family: Times New Roman;
   font-size: 15px;
   line-height: 20px;
   text-align: center;

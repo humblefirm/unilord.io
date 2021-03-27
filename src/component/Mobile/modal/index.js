@@ -70,7 +70,7 @@ const Content = styled.div`
     margin: auto auto;
     width: 90vw;
     height: 67px;
-    font-family: NotoSerif;
+    font-family: Times New Roman;
     font-size: 20px;
     font-style: italic;
     line-height: 20px;
