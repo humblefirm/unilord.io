@@ -4,15 +4,24 @@ import Desktop from "./Desktop";
 import Mobile from "./Mobile";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserView, MobileView } from "react-device-detect";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue
+} from "recoil";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserView>
-      <Desktop />
-    </BrowserView>
-    <MobileView>
-      <Mobile />
-    </MobileView>
+    <RecoilRoot>
+      <BrowserView>
+        <Desktop />
+      </BrowserView>
+      <MobileView>
+        <Mobile />
+      </MobileView>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
 );

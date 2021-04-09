@@ -51,7 +51,7 @@ const Content = styled.div`
   width: 760px;
   height: 500px;
   margin: auto auto;
-  margin-left: 33vw;
+  margin-left: 35vw;
 `;
 
 const Ic = styled.div`
