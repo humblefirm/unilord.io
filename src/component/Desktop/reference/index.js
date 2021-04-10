@@ -32,16 +32,43 @@ function Reference() {
         <span className="title">Contact Team</span>
         <span
           className="email"
-          onClick={() => window.open("mailto:Support@Unilord.io")}
+          onClick={() => window.open("mailto:marketing@Unilord.io")}
         >
-          Support@Unilord.io
+          marketing@Unilord.io
         </span>
         <span
           className="email"
-          onClick={() => window.open("mailto:Partnership@Unilord.io")}
+          onClick={() => window.open("mailto:cs@Unilord.io")}
         >
-          Partnership@Unilord.io
+          cs@Unilord.io
         </span>
+        <Line />
+        <Logos>
+          <Logo
+            onClick={() =>
+              window.open(
+                "https://app.uniswap.org/#/swap?inputCurrency=0x5dd115eb39a0fc5da9022e4bbb8e8679ca066a74&outputCurrency=ETH"
+              )
+            }
+          >
+            <img src="./images/logo-uniswap.png" className="uniswap" />
+            <span>Listed on Uniswap</span>
+          </Logo>
+          <Logo onClick={() => window.open("./")}>
+            <img src="./images/logo-certik.png" className="certik" />
+            <span>Audited by Certik</span>
+          </Logo>
+          <Logo
+            onClick={() =>
+              window.open(
+                "https://unicrypt.network/amm/uni/token/0x5Dd115EB39A0FC5DA9022e4bbB8e8679cA066A74"
+              )
+            }
+          >
+            <img src="./images/logo-unicrypt.png" className="unicrypt" />
+            <span>Locked in Unicrypt</span>
+          </Logo>
+        </Logos>
       </Content>
     </Container>
   );
@@ -59,7 +86,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 710px;
-  height: 500px;
+  height: 660px;
   margin: auto auto;
   margin-left: 33vw;
   .title {
@@ -88,13 +115,15 @@ const Logos = styled.div`
 const Logo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120px;
+  width: 180px;
   height: 190px;
   margin: auto auto;
   cursor: pointer;
   span {
     margin: auto auto;
-    margin-bottom: 43px;
+    margin-top: 25px;
+    margin-bottom: 0px;
+    white-space: nowrap;
     font-family: Times New Roman;
     font-size: 20px;
     line-height: 27px;
@@ -103,26 +132,49 @@ const Logo = styled.div`
   }
   .telegram {
     margin: auto auto;
+    margin-bottom: 0px;
     width: 70px;
     height: 58px;
   }
   .twitter {
     margin: auto auto;
+    margin-bottom: 0px;
     width: 70px;
     height: 57px;
   }
   .medium {
     margin: auto auto;
+    margin-bottom: 0px;
     width: 70px;
     height: 56px;
   }
   .github {
     margin: auto auto;
+    margin-bottom: 0px;
     width: 70px;
     height: 69px;
   }
   .whitepaper {
     margin: auto auto;
+    margin-bottom: 0px;
+    width: 70px;
+    height: 71px;
+  }
+  .uniswap {
+    margin: auto auto;
+    margin-bottom: 0px;
+    width: 70px;
+    height: 71px;
+  }
+  .certik {
+    margin: auto auto;
+    margin-bottom: 0px;
+    width: 70px;
+    height: 71px;
+  }
+  .unicrypt {
+    margin: auto auto;
+    margin-bottom: 0px;
     width: 70px;
     height: 71px;
   }
@@ -130,6 +182,7 @@ const Logo = styled.div`
 const Line = styled.div`
   width: 710px;
   height: 2px;
+  margin-top: 47px;
   object-fit: contain;
   border-radius: 3px;
   -webkit-backdrop-filter: blur(30px);

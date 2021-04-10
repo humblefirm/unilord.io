@@ -6,24 +6,63 @@ function Reference() {
       <span className="title">REFERENCE</span>
       <Content>
         <Logos>
-          <Logo>
+          <Logo onClick={() => window.open("./")}>
             <img src="./images/ic-telegram.svg" className="telegram" />
-            <span>Telegram</span>
           </Logo>
-          <Logo>
+          <Logo
+            onClick={() => window.open("https://twitter.com/OfficialUnilord")}
+          >
+            <img src="./images/ic-twitter.svg" className="twitter" />
+          </Logo>
+          <Logo onClick={() => window.open("https://medium.com/@Unilord")}>
+            <img src="./images/ic-medium.svg" className="medium" />
+          </Logo>
+          <Logo onClick={() => window.open("https://github.com/Dev-Unilord")}>
             <img src="./images/ic-github.svg" className="github" />
-            <span>github</span>
           </Logo>
-          <Logo>
+          <Logo onClick={() => window.open("./UNILORD_whitepaper_2.pdf")}>
             <img src="./images/ic-whitepaper.svg" className="whitepaper" />
-            <span>whitepaper</span>
           </Logo>
         </Logos>
         <Line />
         <span className="title">Contact Team</span>
-        <span className="email">Support@Unilord.io</span>
-        <span className="email">Partnership@Unilord.io</span>
+        <span
+          className="email"
+          onClick={() => window.open("mailto:marketing@Unilord.io")}
+        >
+          marketing@Unilord.io
+        </span>
+        <span
+          className="email"
+          onClick={() => window.open("mailto:cs@Unilord.io")}
+        >
+          cs@Unilord.io
+        </span>
       </Content>
+      <Line />
+      <Logos>
+        <Logo
+          onClick={() =>
+            window.open(
+              "https://app.uniswap.org/#/swap?inputCurrency=0x5dd115eb39a0fc5da9022e4bbb8e8679ca066a74&outputCurrency=ETH"
+            )
+          }
+        >
+          <img src="./images/logo-uniswap.png" className="uniswap" />
+        </Logo>
+        <Logo onClick={() => window.open("./")}>
+          <img src="./images/logo-certik.png" className="certik" />
+        </Logo>
+        <Logo
+          onClick={() =>
+            window.open(
+              "https://unicrypt.network/amm/uni/token/0x5Dd115EB39A0FC5DA9022e4bbB8e8679cA066A74"
+            )
+          }
+        >
+          <img src="./images/logo-unicrypt.png" className="unicrypt" />
+        </Logo>
+      </Logos>
     </Container>
   );
 }
@@ -68,6 +107,7 @@ const Content = styled.div`
 `;
 const Logos = styled.div`
   display: flex;
+  height: 50px;
   margin-top: 50px;
 `;
 const Logo = styled.div`
@@ -75,34 +115,51 @@ const Logo = styled.div`
   flex-direction: column;
   margin: auto auto;
   width: 100vw;
-  height: 150px;
-  span {
-    margin: auto auto;
-    margin-bottom: 43px;
-    font-family: Times New Roman;
-    font-size: 20px;
-    line-height: 27px;
-    text-align: center;
-    color: #ffffff;
-  }
+  height: 50px;
   .telegram {
     margin: auto auto;
-    width: 46px;
-    height: 38px;
+    width: 35px;
+    height: 29px;
+  }
+  .twitter {
+    margin: auto auto;
+    width: 35px;
+    height: 28.4px;
+  }
+  .medium {
+    margin: auto auto;
+    width: 35px;
+    height: 27.8px;
   }
   .github {
     margin: auto auto;
-    width: 56px;
-    height: 55px;
+    width: 35px;
+    height: 34.1px;
   }
   .whitepaper {
     margin: auto auto;
-    width: 54px;
-    height: 55px;
+    width: 35px;
+    height: 35.6px;
+  }
+  .uniswap {
+    margin: auto auto;
+    width: 35px;
+    height: 40.3px;
+  }
+  .certik {
+    margin: auto auto;
+    width: 35px;
+    height: 38.2px;
+  }
+  .unicrypt {
+    margin: auto auto;
+    width: 35px;
+    height: 35px;
   }
 `;
 const Line = styled.div`
   margin: auto auto;
+  margin-top: 53px;
   width: 90vw;
   height: 2px;
   object-fit: contain;
