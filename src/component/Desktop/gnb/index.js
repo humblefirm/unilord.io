@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 
-function Gnb() {
-  const [choosen, choise] = useState("Home");
-
+function Gnb({ choosen, choise }) {
   function Scroll(section) {
     window.location = "#" + section;
     choise(section);

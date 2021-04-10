@@ -11,7 +11,9 @@ const timeState = atom({
     s: 0
   }
 });
-
+const P = number => {
+  return number.toString().padStart(2, "0");
+};
 function Services({ setType, display, setDisplay }) {
   const [time, setTime] = useRecoilState(timeState);
 
@@ -94,7 +96,9 @@ function Services({ setType, display, setDisplay }) {
         <img src="./images/logo.svg" />
         <span className="title">UNILORD</span>
         <span className="text">Let's Start with Deposit Product</span>
-        <span className="countdown">{`${time.d} : ${time.h} : ${time.m} : ${time.s}`}</span>
+        <span className="countdown">{`${P(time.d)} : ${P(time.h)} : ${P(
+          P(time.m)
+        )} : ${P(time.s)}`}</span>
         <Line />
         <ButtonFinance>
           <span>LORD FINANCE</span>
