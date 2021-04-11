@@ -1,6 +1,57 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { atom, useRecoilState } from "recoil";
 
+const timeState = atom({
+  key: "timeState",
+  default: {
+    d: 0,
+    h: 0,
+    m: 0,
+    s: 0
+  }
+});
+const P = number => {
+  return number.toString().padStart(2, "0");
+};
 function Services({ setType, display, setDisplay }) {
+  const [time, setTime] = useRecoilState(timeState);
+
+  const DdayTimer = () => {
+    var dday = new Date("April 14, 2021 23:00:00").getTime();
+    var nowday = new Date();
+    nowday = nowday.getTime();
+    var distance = dday - nowday;
+
+    var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    var h = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    var m = Math.floor((distance / (1000 * 60)) % 60);
+    var s = Math.floor((distance / 1000) % 60);
+    if (distance <= 0) {
+      setTime({
+        d: 0,
+        h: 0,
+        m: 0,
+        s: 0
+      });
+    } else {
+      setTime({
+        d,
+        h,
+        m,
+        s
+      });
+    }
+  };
+
+  useEffect(() => {
+    const timerInstance = setInterval(DdayTimer, 1000);
+    return () => {
+      clearInterval(timerInstance);
+    };
+  }, [time]);
+
   return (
     <Container className="Services" id="Services">
       <span className="title">Services</span>
@@ -46,7 +97,9 @@ function Services({ setType, display, setDisplay }) {
         <img src="./images/logo.svg" />
         <span className="title">UNILORD</span>
         <span className="text">Let's Start with Deposit Product</span>
-        <span className="countdown">00 : 00 : 00 : 00</span>
+        <span className="countdown">{`${P(time.d)} : ${P(time.h)} : ${P(
+          P(time.m)
+        )} : ${P(time.s)}`}</span>
         <Line />
         <ButtonFinance>
           <span>LORD FINANCE</span>
