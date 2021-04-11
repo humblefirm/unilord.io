@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { atom, useRecoilState } from "recoil";
-import { fromWei } from "web3-utils";
+import { fromWei, toWei, toBN } from "web3-utils";
+import { resultingClientExists } from "workbox-core/_private";
 
 export const ERC20_ABI = require("./../../../lib/abis/ERC20ABI.json");
 export const POOL_ABI = require("./../../../lib/abis/poolABI.json");
@@ -36,6 +37,22 @@ function Pools({ web3, account, connectWallet, pool }) {
   const [StakeTokenInstance, setStakeTokenInstance] = useState(undefined);
   const [RewardTokenInstance, setRewardTokenInstance] = useState(undefined);
 
+  const Approve = () => {
+    if (!StakeTokenInstance) return;
+    StakeTokenInstance.methods
+      .approve(pool, toWei("9999999999999999999", "ether"))
+      .send({ from: account });
+  };
+  const Stake = () => {
+    if (!PoolInstance) return;
+    PoolInstance.methods
+      .stake(toWei(plAmount, "ether"))
+      .send({ from: account });
+    setPlAmount(0);
+  };
+  const SetPercent = x => {
+    setPlAmount((n(plBalance).replaceAll(",", "") / 100) * x);
+  };
   const createInstance = () => {
     setPoolInstance(new web3.eth.Contract(POOL_ABI, pool));
   };
@@ -59,11 +76,9 @@ function Pools({ web3, account, connectWallet, pool }) {
     setStakeToken(await PoolInstance.methods.stakeToken.call().call());
     setRewardToken(await PoolInstance.methods.rewardToken.call().call());
     const Interval = setInterval(async () => {
-      console.log(PoolInstance);
       setPlLocked(await PoolInstance.methods.balanceOf(account).call());
-      setPlMined(await PoolInstance.methods.balanceOf(account).call());
-      setPlIsApproved(await PoolInstance.methods.balanceOf(account).call());
-    }, 5000);
+      setPlMined(await PoolInstance.methods.earned(account).call());
+    }, 1000);
     return () => {
       clearInterval(Interval);
     };
@@ -73,7 +88,12 @@ function Pools({ web3, account, connectWallet, pool }) {
     if (!StakeTokenInstance || !account) return;
     const Interval = setInterval(async () => {
       setPlBalance(await StakeTokenInstance.methods.balanceOf(account).call());
-    }, 5000);
+      setPlIsApproved(
+        (await StakeTokenInstance.methods.allowance(account, pool).call()) > 0
+          ? true
+          : false
+      );
+    }, 1000);
 
     return () => {
       clearInterval(Interval);
@@ -114,7 +134,7 @@ function Pools({ web3, account, connectWallet, pool }) {
           </div>
           <div className="amount" style={{ marginTop: "10px" }}>
             <span className="text">USDT Mined:</span>
-            <span className="value">{n(plMined)}</span>
+            <span className="value">{n(plMined * 1e12)}</span>
             <span className="symbol">USDT</span>
           </div>
           <div className="amount" style={{ marginTop: "25px" }}>
@@ -125,40 +145,64 @@ function Pools({ web3, account, connectWallet, pool }) {
           <input
             type="text"
             className="amountStake"
+            value={plAmount}
+            onChange={e => {
+              setPlAmount(e.target.value);
+            }}
             placeholder="Enter the amount of stake"
           />
           <div className="selected" style={{ marginTop: "3px" }}>
             <span className="text">Selected:</span>
-            <span className="value">{n(plAmount)}</span>
+            <span className="value">{plAmount}</span>
           </div>
           <PercentBtns>
-            <div>
+            <div
+              onClick={() => {
+                SetPercent(25);
+              }}
+            >
               <span>25%</span>
             </div>
-            <div>
+            <div
+              onClick={() => {
+                SetPercent(50);
+              }}
+            >
               <span>50%</span>
             </div>
-            <div>
+            <div
+              onClick={() => {
+                SetPercent(75);
+              }}
+            >
               <span>75%</span>
             </div>
-            <div>
+            <div
+              onClick={() => {
+                SetPercent(100);
+              }}
+            >
               <span>100%</span>
             </div>
           </PercentBtns>
-          <TwoBtns>
+          <TwoBtns onClick={Approve}>
             <div>
-              <span>Approve</span>
+              <span className={plIsApproved ? "disable" : ""}>
+                {plIsApproved ? "Approved" : "Approve"}
+              </span>
             </div>
             <div>
-              <span>Unstake</span>
+              <span className={plIsApproved ? "disable" : ""}>Unstake</span>
             </div>
           </TwoBtns>
           <StakeBtn
             onClick={() => {
-              account ? connectWallet() : connectWallet();
+              account ? Stake() : connectWallet();
             }}
           >
-            <span>{account ? "Stake" : "Connect Wallet"}</span>
+            <span className={account && plIsApproved ? "" : "disable"}>
+              {account ? "Stake" : "Connect Wallet"}
+            </span>
           </StakeBtn>
         </Content>
       </Pool>
@@ -392,6 +436,9 @@ const TwoBtns = styled.div`
   width: 210px;
   height: 24px;
   justify-content: space-between;
+  .disable {
+    color: #535353;
+  }
   div {
     display: flex;
     width: 100px;
@@ -418,6 +465,9 @@ const StakeBtn = styled.div`
   object-fit: contain;
   box-shadow: 0 0 5px 0 #ffffff;
   border: solid 1px #ffffff;
+  .disable {
+    color: #535353;
+  }
   span {
     margin: auto auto;
     font-family: Times New Roman;
