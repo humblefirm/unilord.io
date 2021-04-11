@@ -23,7 +23,9 @@ function Reference() {
             <img src="./images/ic-github.svg" className="github" />
             <span>github</span>
           </Logo>
-          <Logo onClick={() => window.open("./UNILORD_whitepaper_2.pdf")}>
+          <Logo
+            onClick={() => window.open("./assets/UNILORD_whitepaper_2.pdf")}
+          >
             <img src="./images/ic-whitepaper.svg" className="whitepaper" />
             <span>whitepaper</span>
           </Logo>
