@@ -134,7 +134,7 @@ function Pools({ web3, account, connectWallet, pool }) {
           </div>
           <div className="amount" style={{ marginTop: "10px" }}>
             <span className="text">USDT Mined:</span>
-            <span className="value">{n(plMined * 1e12)}</span>
+            <span className="value">{n(plMined)}</span>
             <span className="symbol">USDT</span>
           </div>
           <div className="amount" style={{ marginTop: "25px" }}>
