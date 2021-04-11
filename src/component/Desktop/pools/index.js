@@ -1,15 +1,85 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { atom, useRecoilState } from "recoil";
+import { fromWei } from "web3-utils";
 
-function Pools({ web3, account, connectWallet }) {
+export const ERC20_ABI = require("./../../../lib/abis/ERC20ABI.json");
+export const POOL_ABI = require("./../../../lib/abis/poolABI.json");
+function n(x) {
+  x = fromWei(String(x), "ether");
+  let n = x.split(".");
+  x = n[0] + (n.length == 2 ? "." + n[1].substr(0, 2) : ".00");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function Pools({ web3, account, connectWallet, pool }) {
   // useEffect(() => {
   //   const timerInstance = setInterval(DdayTimer, 1000);
   //   return () => {
   //     clearInterval(timerInstance);
   //   };
   // }, [time]);
-  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen1, setIsOpen1] = useState(true);
+  const [plName, setPlName] = useState("PEER");
+  const [plAPY, setPlAPY] = useState(30);
+  const [plCount, setPlCount] = useState("00.00.00.00");
+  const [plTL, setPlTL] = useState(0);
+  const [plTVL, setPlTVL] = useState(0);
+  const [plLocked, setPlLocked] = useState(0);
+  const [plMined, setPlMined] = useState(0);
+  const [plBalance, setPlBalance] = useState(0);
+  const [plAmount, setPlAmount] = useState(0);
+  const [plIsApproved, setPlIsApproved] = useState(false);
+  const [plDate, setPlDate] = useState({ from: 0, to: 0 });
+  const [stakeToken, setStakeToken] = useState(undefined);
+  const [rewardToken, setRewardToken] = useState(undefined);
+  const [PoolInstance, setPoolInstance] = useState(undefined);
+  const [StakeTokenInstance, setStakeTokenInstance] = useState(undefined);
+  const [RewardTokenInstance, setRewardTokenInstance] = useState(undefined);
+
+  const createInstance = () => {
+    setPoolInstance(new web3.eth.Contract(POOL_ABI, pool));
+  };
+  const createTokenInstance = () => {
+    setStakeTokenInstance(new web3.eth.Contract(ERC20_ABI, stakeToken));
+    setRewardTokenInstance(new web3.eth.Contract(ERC20_ABI, rewardToken));
+  };
+
+  useEffect(() => {
+    if (!web3) return;
+    createInstance();
+  }, [pool]);
+
+  useEffect(() => {
+    if (!web3) return;
+    createTokenInstance();
+  }, [rewardToken]);
+
+  useEffect(async () => {
+    if (!PoolInstance) return;
+    setStakeToken(await PoolInstance.methods.stakeToken.call().call());
+    setRewardToken(await PoolInstance.methods.rewardToken.call().call());
+    const Interval = setInterval(async () => {
+      console.log(PoolInstance);
+      setPlLocked(await PoolInstance.methods.balanceOf(account).call());
+      setPlMined(await PoolInstance.methods.balanceOf(account).call());
+      setPlIsApproved(await PoolInstance.methods.balanceOf(account).call());
+    }, 5000);
+    return () => {
+      clearInterval(Interval);
+    };
+  }, [PoolInstance]);
+
+  useEffect(async () => {
+    if (!StakeTokenInstance || !account) return;
+    const Interval = setInterval(async () => {
+      setPlBalance(await StakeTokenInstance.methods.balanceOf(account).call());
+    }, 5000);
+
+    return () => {
+      clearInterval(Interval);
+    };
+  }, [StakeTokenInstance]);
+
   const [isOpen2, setIsOpen2] = useState(false);
 
   return (
@@ -20,8 +90,8 @@ function Pools({ web3, account, connectWallet }) {
       <Pool>
         <Content className="column">
           <img src="./images/logo-peer.svg" />
-          <span className="name">PEER</span>
-          <span className="APY">APY: 30.00%</span>
+          <span className="name">{plName}</span>
+          <span className="APY">APY: {plAPY}%</span>
           <Line />
           <span className="countdown">00.00.00:00</span>
           <span className="locked">PEER 000,000,000.00 PEER</span>
@@ -39,17 +109,17 @@ function Pools({ web3, account, connectWallet }) {
         <Content className={"sub " + (isOpen1 ? "" : "hide")}>
           <div className="amount">
             <span className="text">PEER Locked:</span>
-            <span className="value">000,000,000.00</span>
+            <span className="value">{n(plLocked)}</span>
             <span className="symbol">PEER</span>
           </div>
           <div className="amount" style={{ marginTop: "10px" }}>
             <span className="text">USDT Mined:</span>
-            <span className="value">000,000,000.00</span>
+            <span className="value">{n(plMined)}</span>
             <span className="symbol">USDT</span>
           </div>
           <div className="amount" style={{ marginTop: "25px" }}>
             <span className="text">Balance:</span>
-            <span className="value">000,000,000.00</span>
+            <span className="value">{n(plBalance)}</span>
             <span className="symbol">PEER</span>
           </div>
           <input
@@ -59,7 +129,7 @@ function Pools({ web3, account, connectWallet }) {
           />
           <div className="selected" style={{ marginTop: "3px" }}>
             <span className="text">Selected:</span>
-            <span className="value">000,000,000.00</span>
+            <span className="value">{n(plAmount)}</span>
           </div>
           <PercentBtns>
             <div>
@@ -89,77 +159,6 @@ function Pools({ web3, account, connectWallet }) {
             }}
           >
             <span>{account ? "Stake" : "Connect Wallet"}</span>
-          </StakeBtn>
-        </Content>
-      </Pool>
-      <Pool>
-        <Content className="column">
-          <img src="./images/logo-peer.svg" />
-          <span className="name">PEER - LP</span>
-          <span className="APY">APY: 30.00%</span>
-          <Line />
-          <span className="countdown">00.00.00:00</span>
-          <span className="locked">PEER 000,000,000.00 PEER</span>
-          <span className="lockedValue">TVL $999,999,999.00 PEER Locked</span>
-          <BtnStake
-            onClick={() => {
-              setIsOpen2(!isOpen2);
-            }}
-          >
-            <span>Stake</span>
-            <img src={`./images/cross-${isOpen2 ? "left" : "right"}.svg`} />
-          </BtnStake>
-        </Content>
-        <LineV className={isOpen2 ? "" : "hide"} />
-        <Content className={"sub " + (isOpen2 ? "" : "hide")}>
-          <div className="amount">
-            <span className="text">PEER Locked:</span>
-            <span className="value">000,000,000.00</span>
-            <span className="symbol">PEER</span>
-          </div>
-          <div className="amount" style={{ marginTop: "10px" }}>
-            <span className="text">USDT Mined:</span>
-            <span className="value">000,000,000.00</span>
-            <span className="symbol">USDT</span>
-          </div>
-          <div className="amount" style={{ marginTop: "25px" }}>
-            <span className="text">Balance:</span>
-            <span className="value">000,000,000.00</span>
-            <span className="symbol">PEER</span>
-          </div>
-          <input
-            type="text"
-            className="amountStake"
-            placeholder="Enter the amount of stake"
-          />
-          <div className="selected" style={{ marginTop: "3px" }}>
-            <span className="text">Selected:</span>
-            <span className="value">000,000,000.00</span>
-          </div>
-          <PercentBtns>
-            <div>
-              <span>25%</span>
-            </div>
-            <div>
-              <span>50%</span>
-            </div>
-            <div>
-              <span>75%</span>
-            </div>
-            <div>
-              <span>100%</span>
-            </div>
-          </PercentBtns>
-          <TwoBtns>
-            <div>
-              <span>Approve</span>
-            </div>
-            <div>
-              <span>Unstake</span>
-            </div>
-          </TwoBtns>
-          <StakeBtn>
-            <span>Stake</span>
           </StakeBtn>
         </Content>
       </Pool>

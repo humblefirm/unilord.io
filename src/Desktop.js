@@ -3,13 +3,15 @@ import Pools from "./component/Desktop/pools";
 import Modal from "./component/Desktop/modal";
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
+import contracts from "./lib/contracts";
 
 function Desktop({ web3Modal }) {
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState(false);
   const [type, setType] = useState("pool");
   const [choosen, choise] = useState("Pools");
   const [web3, setWeb3] = useState(undefined);
   const [account, setAccount] = useState(undefined);
+  const [chainId, setChainId] = useState(-1);
 
   const position = ["Pools"];
 
@@ -27,7 +29,9 @@ function Desktop({ web3Modal }) {
   }, []);
 
   useEffect(async () => {
-    if (web3) setAccount((await web3.eth.getAccounts())[0]);
+    if (!web3) return;
+    setAccount((await web3.eth.getAccounts())[0]);
+    setChainId(await web3.eth.getChainId());
   }, [web3]);
 
   const onScroll = e => {
@@ -42,7 +46,12 @@ function Desktop({ web3Modal }) {
         connectWallet={ConnectWallet}
         account={account}
       />
-      <Pools web3={web3} account={account} connectWallet={ConnectWallet} />
+      <Pools
+        web3={web3}
+        account={account}
+        connectWallet={ConnectWallet}
+        pool={contracts[chainId] ? contracts[chainId].POOL.PEER : undefined}
+      />
       <Modal type={type} modalOpen={display} setModalOpen={setDisplay} />
       <style jsx global>{`
         body {
