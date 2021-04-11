@@ -12,6 +12,10 @@ function n(x) {
   x = n[0] + (n.length == 2 ? "." + n[1].substr(0, 2) : ".00");
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function StartInterval(callback, t) {
+  callback();
+  return setInterval(callback, t);
+}
 function Pools({ web3, account, connectWallet, pool }) {
   // useEffect(() => {
   //   const timerInstance = setInterval(DdayTimer, 1000);
@@ -75,9 +79,11 @@ function Pools({ web3, account, connectWallet, pool }) {
     if (!PoolInstance) return;
     setStakeToken(await PoolInstance.methods.stakeToken.call().call());
     setRewardToken(await PoolInstance.methods.rewardToken.call().call());
-    const Interval = setInterval(async () => {
+    const Interval = StartInterval(async () => {
       setPlLocked(await PoolInstance.methods.balanceOf(account).call());
       setPlMined(await PoolInstance.methods.earned(account).call());
+      setPlTL(await PoolInstance.methods.totalSupply().call());
+      setPlTVL(await PoolInstance.methods.totalSupply().call());
     }, 1000);
     return () => {
       clearInterval(Interval);
@@ -86,7 +92,7 @@ function Pools({ web3, account, connectWallet, pool }) {
 
   useEffect(async () => {
     if (!StakeTokenInstance || !account) return;
-    const Interval = setInterval(async () => {
+    const Interval = StartInterval(async () => {
       setPlBalance(await StakeTokenInstance.methods.balanceOf(account).call());
       setPlIsApproved(
         (await StakeTokenInstance.methods.allowance(account, pool).call()) > 0
@@ -114,8 +120,8 @@ function Pools({ web3, account, connectWallet, pool }) {
           <span className="APY">APY: {plAPY}%</span>
           <Line />
           <span className="countdown">00.00.00:00</span>
-          <span className="locked">PEER 000,000,000.00 PEER</span>
-          <span className="lockedValue">TVL $999,999,999.00 PEER Locked</span>
+          <span className="locked">PEER {n(plTL)} PEER</span>
+          <span className="lockedValue">TVL ${n(plTVL)} PEER Locked</span>
           <BtnStake
             onClick={() => {
               setIsOpen1(!isOpen1);

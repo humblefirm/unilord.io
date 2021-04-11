@@ -24,8 +24,8 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      infuraId: "636c3521d0f648d5b1789cd9388a182f", // Required
-      network: "rinkeby",
+      infuraId: "3fc11d1feb8944229a1cfba7bd62c8bc", // Required
+      network: "mainnet",
       qrcodeModalOptions: {
         mobileLinks: [
           // "rainbow",
