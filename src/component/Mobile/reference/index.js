@@ -6,7 +6,7 @@ function Reference() {
       <span className="title">REFERENCE</span>
       <Content>
         <Logos>
-          <Logo onClick={() => window.open("./")}>
+          <Logo onClick={() => window.open("https://t.me/Unilord_Chat")}>
             <img src="./images/ic-telegram.svg" className="telegram" />
           </Logo>
           <Logo
