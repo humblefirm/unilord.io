@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 
-function Gnb({ choosen, choise }) {
+function Gnb({ choosen, choise, connectWallet, account }) {
   function Scroll(section) {
     window.location = "#" + section;
     choise(section);
@@ -14,6 +14,13 @@ function Gnb({ choosen, choise }) {
           <img src="./images/logo.svg" />
           <span>UNILORD</span>
         </Logo>
+        <ConnectWallet onClick={() => connectWallet()}>
+          <span>
+            {account
+              ? account.substring(0, 8) + "..." + account.substring(36, 42)
+              : "Connect wallet"}
+          </span>
+        </ConnectWallet>
         <Nav>
           <div
             className={"nav " + (choosen == "Home" ? "choosen" : "")}
@@ -55,7 +62,26 @@ function Gnb({ choosen, choise }) {
     </Container>
   );
 }
-
+const ConnectWallet = styled.div`
+  display: flex;
+  margin-top: 60px;
+  width: 150px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.6);
+  background-color: #000000;
+  span {
+    margin: auto auto;
+    font-family: Times New Roman;
+    font-size: 15px;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.13;
+    text-align: center;
+    color: #29a7ff;
+  }
+`;
 const Container = styled.div`
   display: flex;
   width: 30vw;
@@ -99,7 +125,7 @@ const Logo = styled.div`
 const Nav = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 84px;
+  margin-top: 53px;
   .nav {
     display: flex;
     margin-top: 37px;

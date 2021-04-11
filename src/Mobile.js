@@ -1,9 +1,4 @@
 import Gnb from "./component/Mobile/gnb";
-import Home from "./component/Mobile/home";
-import About from "./component/Mobile/about";
-import Services from "./component/Mobile/services";
-import Reference from "./component/Mobile/reference";
-import Disclaimer from "./component/Mobile/disclaimer";
 import Modal from "./component/Mobile/modal";
 import React, { useState } from "react";
 
@@ -14,11 +9,6 @@ function Mobile() {
   return (
     <div className="Mobile">
       <Gnb display={display} setDisplay={setDisplay} />
-      <Home />
-      <About />
-      <Services setType={setType} display={displayS} setDisplay={setDisplayS} />
-      <Reference />
-      <Disclaimer />
       <Modal type={type} display={displayS} setDisplay={setDisplayS} />
       <img
         src="./images/btn-hbg.svg"

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { atom, useRecoilState } from "recoil";
 
-function Pools() {
+function Pools({ web3, account, connectWallet }) {
   // useEffect(() => {
   //   const timerInstance = setInterval(DdayTimer, 1000);
   //   return () => {
@@ -83,8 +83,12 @@ function Pools() {
               <span>Unstake</span>
             </div>
           </TwoBtns>
-          <StakeBtn>
-            <span>Stake</span>
+          <StakeBtn
+            onClick={() => {
+              account ? connectWallet() : connectWallet();
+            }}
+          >
+            <span>{account ? "Stake" : "Connect Wallet"}</span>
           </StakeBtn>
         </Content>
       </Pool>
