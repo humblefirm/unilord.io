@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { atom, useRecoilState } from "recoil";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { atom, useRecoilState } from 'recoil';
 
 const timeState = atom({
-  key: "timeState",
+  key: 'timeState',
   default: {
     d: 0,
     h: 0,
     m: 0,
-    s: 0
-  }
+    s: 0,
+  },
 });
-const P = number => {
-  return number.toString().padStart(2, "0");
+const P = (number) => {
+  return number.toString().padStart(2, '0');
 };
 function Services({ setType, display, setDisplay }) {
   const [time, setTime] = useRecoilState(timeState);
 
   const DdayTimer = () => {
-    var dday = new Date("April 14, 2021 23:00:00").getTime();
+    var dday = new Date('April 14, 2021 23:00:00').getTime();
     var nowday = new Date();
     nowday = nowday.getTime();
     var distance = dday - nowday;
@@ -33,14 +33,14 @@ function Services({ setType, display, setDisplay }) {
         d: 0,
         h: 0,
         m: 0,
-        s: 0
+        s: 0,
       });
     } else {
       setTime({
         d,
         h,
         m,
-        s
+        s,
       });
     }
   };
@@ -58,10 +58,10 @@ function Services({ setType, display, setDisplay }) {
       <Content>
         <Card>
           <span>LORD POOL</span>
-          <img className="pool" src="./images/LORD-POOL.png" />
+          <img className="pool" src="./images/LORD-POOL.png" alt="" />
           <Button
             onClick={() => {
-              setType("pool");
+              setType('pool');
               setDisplay(!display);
             }}
           >
@@ -70,10 +70,10 @@ function Services({ setType, display, setDisplay }) {
         </Card>
         <Card>
           <span>LORD SWAP</span>
-          <img className="swap" src="./images/LORD-SWAP.png" />
+          <img className="swap" src="./images/LORD-SWAP.png" alt="" />
           <Button
             onClick={() => {
-              setType("swap");
+              setType('swap');
               setDisplay(!display);
             }}
           >
@@ -82,10 +82,10 @@ function Services({ setType, display, setDisplay }) {
         </Card>
         <Card>
           <span>LORD FINANCE</span>
-          <img className="finance" src="./images/LORD-FINANCE.png" />
+          <img className="finance" src="./images/LORD-FINANCE.png" alt="" />
           <Button
             onClick={() => {
-              setType("finance");
+              setType('finance');
               setDisplay(!display);
             }}
           >
@@ -94,12 +94,10 @@ function Services({ setType, display, setDisplay }) {
         </Card>
       </Content>
       <Content className="column">
-        <img src="./images/logo.svg" />
+        <img src="./images/logo.svg" alt="" />
         <span className="title">UNILORD</span>
         <span className="text">Let's Start with Deposit Product</span>
-        <span className="countdown">{`${P(time.d)} : ${P(time.h)} : ${P(
-          P(time.m)
-        )} : ${P(time.s)}`}</span>
+        <span className="countdown">{`${P(time.d)} : ${P(time.h)} : ${P(P(time.m))} : ${P(time.s)}`}</span>
         <Line />
         <ButtonFinance>
           <span>LORD FINANCE</span>

@@ -1,52 +1,37 @@
-import styled from "styled-components";
-import React, { useState } from "react";
+import styled from 'styled-components';
+import React, { useState } from 'react';
 
 function Gnb({ choosen, choise }) {
   function Scroll(section) {
-    window.location = "#" + section;
+    window.location = '#' + section;
     choise(section);
   }
 
   return (
     <Container className="Gnb">
       <Content>
-        <Logo onClick={() => Scroll("Home")}>
+        <Logo onClick={() => Scroll('Home')}>
           <img src="./images/logo.svg" />
           <span>UNILORD</span>
         </Logo>
         <Nav>
-          <div
-            className={"nav " + (choosen == "Home" ? "choosen" : "")}
-            onClick={() => Scroll("Home")}
-          >
+          <div className={'nav ' + (choosen === 'Home' ? 'choosen' : '')} onClick={() => Scroll('Home')}>
             <NLine />
             <span>HOME</span>
           </div>
-          <div
-            className={"nav " + (choosen == "About" ? "choosen" : "")}
-            onClick={() => Scroll("About")}
-          >
+          <div className={'nav ' + (choosen === 'About' ? 'choosen' : '')} onClick={() => Scroll('About')}>
             <NLine />
             <span>ABOUT</span>
           </div>
-          <div
-            className={"nav " + (choosen == "Services" ? "choosen" : "")}
-            onClick={() => Scroll("Services")}
-          >
+          <div className={'nav ' + (choosen === 'Services' ? 'choosen' : '')} onClick={() => Scroll('Services')}>
             <NLine />
             <span>SERVICES</span>
           </div>
-          <div
-            className={"nav " + (choosen == "Reference" ? "choosen" : "")}
-            onClick={() => Scroll("Reference")}
-          >
+          <div className={'nav ' + (choosen === 'Reference' ? 'choosen' : '')} onClick={() => Scroll('Reference')}>
             <NLine />
             <span>REFERENCE</span>
           </div>
-          <div
-            className={"nav " + (choosen == "Disclaimer" ? "choosen" : "")}
-            onClick={() => Scroll("Disclaimer")}
-          >
+          <div className={'nav ' + (choosen === 'Disclaimer' ? 'choosen' : '')} onClick={() => Scroll('Disclaimer')}>
             <NLine />
             <span>DISCLAIMER</span>
           </div>
